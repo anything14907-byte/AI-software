@@ -47,6 +47,7 @@ export interface AppSettings {
   temperature: string;
   api_key?: string;
   api_key_override?: string;
+  backend_url?: string;
   has_env_key?: boolean;
 }
 

@@ -42,6 +42,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [modelName, setModelName] = useState(settings.model_name || 'gemini-2.5-flash');
   const [temperature, setTemperature] = useState(settings.temperature || '0.7');
   const [apiKey, setApiKey] = useState(settings.api_key_override || '');
+  const [backendUrl, setBackendUrl] = useState(settings.backend_url || '');
   
   const [newMemory, setNewMemory] = useState('');
   const [isAddingMem, setIsAddingMem] = useState(false);
@@ -59,6 +60,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       setModelName(settings.model_name || 'gemini-2.5-flash');
       setTemperature(settings.temperature || '0.7');
       setApiKey(settings.api_key_override || '');
+      setBackendUrl(settings.backend_url || localStorage.getItem('backend_url') || '');
       checkApiHealth();
     }
   }, [isOpen, settings]);
@@ -86,6 +88,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         model_name: modelName,
         temperature: temperature,
         api_key: apiKey.trim(),
+        backend_url: backendUrl.trim(),
       });
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 2000);
@@ -397,6 +400,23 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   {settings.has_env_key
                     ? "✓ An API key is currently detected from your backend/.env file."
                     : "No key found in .env. You can enter your API key here or add it to backend/.env."}
+                </p>
+              </div>
+
+              {/* Backend Server URL (Optional) */}
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+                  FastAPI Backend Server URL (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={backendUrl}
+                  onChange={(e) => setBackendUrl(e.target.value)}
+                  placeholder="e.g. https://my-fastapi-backend.onrender.com (leave empty for local / direct mode)"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gemini-500/20 focus:border-gemini-500"
+                />
+                <p className="mt-1 text-[11px] text-gray-400">
+                  On GitHub Pages, you can either enter your deployed backend URL or leave it empty to stream directly from Google Gemini in your browser!
                 </p>
               </div>
 

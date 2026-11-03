@@ -51,6 +51,42 @@ A modern, high-performance AI chat assistant web application built from scratch 
 
 ---
 
+## 🌐 Deployment Options
+
+### 1. GitHub Pages (Live Frontend Web App)
+The web application is configured to deploy directly to GitHub Pages:
+👉 **`https://anything14907-byte.github.io/AI-software/`**
+
+**How to activate GitHub Pages on your repository:**
+1. Open your repository on GitHub: `https://github.com/anything14907-byte/AI-software`
+2. Go to **Settings** → **Pages** (in the left sidebar).
+3. Under **Build and deployment → Source**:
+   - **Option A (Recommended)**: Choose **GitHub Actions**. The included `.github/workflows/deploy-pages.yml` will automatically build and deploy every push!
+   - **Option B (Instant)**: Choose **Deploy from a branch**, select branch **`main`**, and folder **`/docs`**, then click **Save**.
+4. Once deployed, open the site. You can use it immediately by entering your free Gemini API key in **Settings (⚙️)**, or connect it to your hosted FastAPI backend!
+
+---
+
+### 2. Deploying the FastAPI Backend Separately (Optional Cloud Hosting)
+
+If you want persistent server-side SQLite storage and server-side PDF processing in the cloud, you can host the backend for free on **Render**, **Railway**, or **Koyeb**:
+
+#### Deploy to Render.com (Free)
+1. Go to [Render.com](https://render.com) and create a free account.
+2. Click **New +** → **Web Service** → Connect your repository `anything14907-byte/AI-software`.
+3. Configure the service:
+   - **Root Directory**: `backend`
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+4. Add an Environment Variable:
+   - `GEMINI_API_KEY`: *(Your Google AI Studio API key)*
+5. Click **Deploy Web Service**.
+6. Render will generate a URL like `https://gemini-chat-backend.onrender.com`.
+7. In your GitHub Pages frontend, click **Settings (⚙️)** and enter this URL into **FastAPI Backend Server URL**!
+
+---
+
 ## 🚀 Quick Start (One Command)
 
 Run the included startup script from the project root:
